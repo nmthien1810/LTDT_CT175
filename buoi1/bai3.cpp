@@ -1,6 +1,7 @@
-#include "D:\LTDT\CT175\buoi1\matrandinhcung.cpp"
+#include "matrandinhcung.cpp"
 
 int main() {
     Graph G;
-    init_graph()
+    init_graph(&G, 4, 5);
+    
 }
