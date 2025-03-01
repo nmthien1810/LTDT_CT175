@@ -40,6 +40,3 @@ int degree(Graph* G, int x) {
     }
     return deg;
 }
-
-
-
