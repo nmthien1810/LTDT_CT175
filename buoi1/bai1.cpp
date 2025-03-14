@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 #include "D:\LTDT\CT175\buoi1\matrandinhcung.cpp"
+=======
+#include <stdio.h>
+#include "matrandinhcung.h"
+>>>>>>> 0977523 (.)
 
 int main() {
     Graph G;
