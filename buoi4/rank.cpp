@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "C:\\Users\student\Downloads\matrandinhdinh.h"
+#include "matrandinhdinh.h"
 
 int rank[MAX_VERTICES];
 
@@ -45,7 +45,7 @@ void ranking(Graph* G) {
 int main() {
 	Graph G;
 	int n, m, u, v;
-	FILE* file = fopen("C:\\Users\\student\\Downloads\\dt.txt", "r");
+	FILE* file = fopen("dt.txt", "r");
 	fscanf(file, "%d%d", &n, &m);
 	init_graph(&G, n);
 	for (int e = 1; e <= m; e++) {
