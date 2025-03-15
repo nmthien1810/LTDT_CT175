@@ -94,21 +94,21 @@ int main() {
 	t[n + 1] = 0;
 	for (int i = 2; i <= L.size; i++) {
 		int u = element_at(&L, i);
-		t[u] = INFINITY;
+		t[u] = -1;
 		for (x = 1; x <= G.n; x++) {
 			if (G.A[x][u] > 0)
-				t[u] = min(t[u], t[x] + d[x]);
+				t[u] = max(t[u], t[x] + d[x]);
 		}
 	}
 
 	int T[MAX_VERTICES];
-	T[n + 2] t[n + 2];
+	T[n + 2] = t[n + 2];
 	for (int i = L.size - 1; i >= 1; i--) {
 		int u = element_at(&L, i);
-		
-		for (v = 1; V <= G.n; v++) {
+		T[u] = INFINITY;
+		for (v = 1; v <= G.n; v++) {
 			if (G.A[u][v] > 0)
-				T[u] = max(T[u], T[v] - d[u]);
+				T[u] = min(T[u], T[v] - d[u]);
 		}
 	}
 
