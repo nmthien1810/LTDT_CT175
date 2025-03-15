@@ -57,10 +57,6 @@ int element_at(List* L, int i) {
 	return L->data[i - 1];
 }
 
-int count_list(List* L) {
-	return L->size;
-}
-
 List neighbors(Graph* G, int x) {
 	List L;
 	make_null_list(&L);
@@ -85,7 +81,7 @@ void push(Stack* S, int x) {
 	S->size++;
 }
 
-int top(Stack* S) {
+int top_stack(Stack* S) {
 	return S->data[S->size - 1];
 }
 
@@ -93,7 +89,7 @@ void pop(Stack* S) {
 	S->size--;
 }
 
-int empty(Stack* S) {
+int empty_stack(Stack* S) {
 	return S->size == 0;
 }
 
@@ -107,20 +103,20 @@ void make_null_queue(Queue* Q) {
 	Q->rear = -1;
 }
 
-void push(Queue* Q, int x) {
+void enQueue(Queue* Q, int x) {
 	Q->rear++;
 	Q->data[Q->rear] = x;		
 }
 
-int top(Queue* Q) {
+int top_queue(Queue* Q) {
 	return Q->data[Q->front];
 }
 
-void pop(Queue* Q) {
+void deQueue(Queue* Q) {
 	Q->front++;
 }
 
-int empty(Queue* Q) {
+int empty_queue(Queue* Q) {
 	return Q->front > Q->rear;
 }
 

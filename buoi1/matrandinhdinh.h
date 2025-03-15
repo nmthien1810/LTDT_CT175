@@ -1,28 +1,13 @@
 #ifndef GRAPH_DD
 #define GRAPH_DD
 
-#define MAX_VERTICS 100
+#define MAX_VERTICES 100
 #define MAX_ELEMENTS 100
 
 typedef struct {
-	int A[MAX_ELEMENTS][MAX_ELEMENTS];
+	int A[MAX_VERTICES][MAX_VERTICES];
 	int n;
 } Graph;
-
-typedef struct {
-	int data[MAX_ELEMENTS];
-	int size;	
-} Stack;
-
-typedef struct {
-	int data[MAX_ELEMENTS];
-	int size;
-} List;
-
-typedef struct {
-	int data[MAX_ELEMENTS];
-	int front, rear;
-} Queue;
 
 void init_graph(Graph* G, int n) {
 	G->n = n;
@@ -36,7 +21,11 @@ void init_graph(Graph* G, int n) {
 void add_edge(Graph* G, int x, int y) {
 	G->A[x][y] += 1;
 	G->A[y][x] += 1;
-}
+} 
+
+void add_edge1(Graph* G, int x, int y) {
+	G->A[x][y] += 1;
+} 
 
 int adjacent(Graph* G, int x, int y) {
 	return G->A[x][y] != 0;
@@ -45,32 +34,15 @@ int adjacent(Graph* G, int x, int y) {
 int degree(Graph* G, int x) {
 	int deg = 0;
 	for (int e = 1; e <= G->n; e++) {
-			deg += G->A[x][e];
+		deg += G->A[x][e];
 	}
 	return deg;
 }
 
-
-void make_null_stack(Stack* S) {
-	S->size = 0;
-}
-
-void push(Stack* S, int x) {
-	S->data[S->size] = x;
-	S->size++;
-}
-
-int top(Stack* S) {
-	return S->data[S->size - 1];
-}
-
-void pop(Stack* S) {
-	S->size--;
-}
-
-int empty(Stack* S) {
-	return S->size == 0;
-}
+typedef struct {
+	int data[MAX_ELEMENTS];
+	int size;
+} List;
 
 void make_null_list(List* L) {
 	L->size = 0;
@@ -85,40 +57,66 @@ int element_at(List* L, int i) {
 	return L->data[i - 1];
 }
 
-int count_list(List* L) {
-	return L->size;
-}
-
 List neighbors(Graph* G, int x) {
 	List L;
 	make_null_list(&L);
 	for (int y = 1; y <= G->n; y++) {
 		if (G->A[x][y] > 0)
-			push_back(&L, y);
+		push_back(&L, y);
 	}
 	return L;
 }
 
+typedef struct {
+	int data[MAX_ELEMENTS];
+	int size;	
+} Stack;
+
+void make_null_stack(Stack* S) {
+	S->size = 0;
+}
+
+void push(Stack* S, int x) {
+	S->data[S->size] = x;
+	S->size++;
+}
+
+int top_stack(Stack* S) {
+	return S->data[S->size - 1];
+}
+
+void pop(Stack* S) {
+	S->size--;
+}
+
+int empty_stack(Stack* S) {
+	return S->size == 0;
+}
+
+typedef struct {
+	int data[MAX_ELEMENTS];
+	int front, rear;
+} Queue;
 
 void make_null_queue(Queue* Q) {
 	Q->front = 0;
 	Q->rear = -1;
 }
 
-void push(Queue* Q, int x) {
+void enQueue(Queue* Q, int x) {
 	Q->rear++;
 	Q->data[Q->rear] = x;		
 }
 
-int top(Queue* Q) {
+int top_queue(Queue* Q) {
 	return Q->data[Q->front];
 }
 
-void pop(Queue* Q) {
+void deQueue(Queue* Q) {
 	Q->front++;
 }
 
-int empty(Queue* Q) {
+int empty_queue(Queue* Q) {
 	return Q->front > Q->rear;
 }
 
