@@ -101,7 +101,7 @@ int main() {
         u = element_at(&L, i);
         t[u] = -1;
         for (x = 1; x <= G.n; x++) {
-            if (G.A[x][u])
+            if (G.A[x][u] > 0)
                 t[u] = max(t[u], t[x] + d[x]);
         }
     }
@@ -112,7 +112,7 @@ int main() {
         u = element_at(&L, i);
         T[u] = INFINITY;
         for (v = 1; v <= G.n; v++) {
-            if (G.A[u][v])
+            if (G.A[u][v] > 0)
                 T[u] = min(T[u], T[v] - d[u]);
         }
     }

@@ -113,7 +113,7 @@ int main() {
 	}
 
 	for (int i = 1; i <= G.n; i++) {
-		printf("%d - %d\n", t[i], T[i]);
+		printf("%d-%d\n", t[i], T[i]);
 	}
 	
 	fclose(file);	
