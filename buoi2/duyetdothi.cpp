@@ -29,7 +29,7 @@ void breadth_first_search(Graph* G, int x, int mark[]) {
 	Queue Q;
 	make_null_queue(&Q);
 	
-	deQueue(&Q);
+	enQueue(&Q, x);
 	
 	printf("Thu tu duyet:\n");
 	while (!empty_queue(&Q)) {
