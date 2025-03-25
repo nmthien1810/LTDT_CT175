@@ -37,7 +37,7 @@ void printList(Graph* G, int x) {
 int main () {
 	Graph G; 
     int n, m, u, v; 
-    FILE* file = fopen("db3.txt", "r"); 
+    FILE* file = fopen("db.txt", "r"); 
     fscanf(file, "%d%d", &n, &m); 
     init_graph(&G, n); 
     for (int e = 1; e <= m; e++) { 

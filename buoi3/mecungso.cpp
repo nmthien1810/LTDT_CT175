@@ -1,96 +1,94 @@
 #include <stdio.h>
 
-#define MAXN 100
+#define MAX_N 100
 #define NO_EDGE 0
-#define INFINITY 999999
-
-int pi[MAXN];
-int p[MAXN];
-int mark[MAXN];
-int path[MAXN];
+#define INFINITY 1000000
 
 typedef struct {
-	int n;
-	int A[MAXN][MAXN];
+    int n;
+    int A[MAX_N][MAX_N];
 } Graph;
 
-void init_graph(Graph* G, int n) {
-	G->n = n;
-	for (int i = 1; i <= n; i++) {
-		for (int j = 1; j <= n; j++) {
-			G->A[i][j] = NO_EDGE;
-		}
-	}
-} 
-
-void Dijkstra(Graph* G, int s) {
-	int i, j;
-	for (i = 1; i <=G->n; i++) {
-		pi[i] = INFINITY;
-		mark[i] = 0;
-	}	
-	
-	pi[s] = 0;
-	p[s] = -1;
-	
-	for (int k = 1; k < G->n; k++) {
-		int min_pi = INFINITY;
-		for (j = 1; j <= G->n; j++) {
-			if (mark[j] == 0 && pi[i] < min_pi) {
-				min_pi = pi[j];
-				i = j;
-			}
-		}
-		
-		mark[i] = 1;
-		for (j = 1; j <= G->n; j++) {
-			if (G->A[i][j] != NO_EDGE && mark[j] == 0) {
-				if (pi[j] > pi[i] + G->A[i][j]) {
-					pi[j] = pi[i] + G->A[i][j];
-					p[j] = i;
-				}
-			}
-		}
-	}
+void init_graph (Graph *G, int n){
+    G->n = n;
+    for(int i = 1; i <= n; i++){
+        for(int j = 1; j <= n; j++){
+            G->A[i][j] = NO_EDGE;
+        }
+    }
 }
 
-void pathGraph(Graph* G, int u) {
-	int k = 0;
-	int current = u;
-	while (current != -1) {
-		path[k] = current; k++;
-		current = p[current];
-	}
-	int i;
-	for (i = k-1; i >=0; i--) {
-		printf("%d ", path[i]);
-	}		
+void add_edge(Graph *G, int u, int v, int w){
+    G->A[u][v] = w;
 }
 
-void BellmanFord(Graph* G, int s) {
-	int i, j;
-	for (i = 1; i <= G->n; i++) {
-		pi[i] = INFINITY;
-	}  
+int is_valid(int i, int j, int n, int m){
+    return (0 <= i && i < n && j >= 0 && j < m);
 }
 
-int main() {
-	Graph G;
-	int n, m, u, v, w;
-	FILE* file = fopen("C:\\Users\\student\\Downloads\\dt.txt", "r");
-	fscanf(file, "%d%d", &n, &m);
-	init_graph(&G, n);
-	for (int i = 1; i <= m; i++) {
-		fscanf(file, "%d%d%d", &u, &v, &w);
-		G.A[u][v] = w;
-	}
-	
-	Dijkstra(&G, 1);
-	for (int i = 1; i <= n; i++) {
-		printf("pi[%d] = %d, p[%d] = %d\n", i, pi[i], i, p[i]);	
-	}
-	
-	pathGraph(&G, n);
-	
-}
+int mark[MAX_N], pi[MAX_N], p[MAX_N];
 
+void dijkstra(Graph *G, int u){    
+    for(int i = 1; i <= G->n; i++){
+        mark[i] = 0;
+        pi[i] = INFINITY;
+    }
+
+    pi[u] = 0;
+    p[u] = -1;
+
+    for (int i = 1; i <= G->n - 1; i++) {
+        int min_pi = INFINITY;
+        for (int j = 1; j <= G->n; j++){
+            if (!mark[j] && pi[j] < min_pi) {
+                min_pi = pi[j];
+                u = j;
+            }
+        } 
+
+        mark[u] = 1;
+
+        for(int v = 1; v <= G->n; v++){
+            if (G->A[u][v] != NO_EDGE && !mark[v] && pi[u] + G->A[u][v] < pi[v]) {
+                pi[v] = pi[u] + G->A[u][v]; 
+                p[v] = u;
+            }
+        }       
+    }
+}
+    
+int main(){
+    Graph G;
+    int maze[MAX_N][MAX_N];
+    
+    int n, m;
+    FILE* file = fopen("mecungso.txt", "r");
+    fscanf(file, "%d%d", &n, &m);
+    init_graph(&G, n * m);
+
+    int adj[4][2]={{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+    
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            fscanf(file, "%d", &maze[i][j]);
+        }
+    }
+
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < m; j++){
+            int u = i * m + j + 1;
+            for(int k = 0; k < 4; k++){
+                int adjR = i + adj[k][0];
+                int adjC = j + adj[k][1];                        
+                if(is_valid(adjR, adjC, n, m)){    
+                    int v = adjR * m + adjC + 1; 
+                    add_edge(&G, u, v, maze[adjR][adjC]);
+                }                
+            }
+        }
+    }
+
+    dijkstra(&G, 1);
+    
+    printf("%d", pi[n * m] + maze[0][0]);
+}

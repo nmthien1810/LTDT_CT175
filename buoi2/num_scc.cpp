@@ -33,8 +33,8 @@ void strong_connect(Graph* G, int x) {
         count++;        
         int w; 
         do { 
-            if (!empty(&S)) {
-                w = top(&S); 
+            if (!empty_stack(&S)) {
+                w = top_stack(&S); 
                 pop(&S);
                 on_stack[w] = 0;
             }                      

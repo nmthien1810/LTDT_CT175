@@ -59,7 +59,7 @@ void strong_connect_components(Graph* G) {
 int main() {
     Graph G;
     int n, m, u, v, w;
-    FILE* file = fopen("cag2.txt", "r");
+    FILE* file = fopen("cag.txt", "r");
     fscanf(file, "%d%d", &n, &m);
     init_graph(&G, n);
     for (int i = 1; i <= m; i++) {

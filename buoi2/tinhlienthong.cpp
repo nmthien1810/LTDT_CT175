@@ -7,8 +7,8 @@ void depth_first_search(Graph* G, int x, int mark[]) {
 
     push(&S, x);
     
-    while (!empty(&S)) {
-        int a = top(&S);
+    while (!empty_stack(&S)) {
+        int a = top_stack(&S);
         pop(&S);
         
         if (mark[a] != 0)
@@ -27,11 +27,11 @@ void breadth_first_search(Graph* G, int x, int mark[]) {
 	Queue Q;
 	make_null_queue(&Q);
 	
-	push(&Q, x);
+	enQueue(&Q, x);
 	
-	while (!empty(&Q)) {
-		int a = top(&Q);
-		pop(&Q);
+	while (!empty_queue(&Q)) {
+		int a = top_queue(&Q);
+		deQueue(&Q);
 		
 		if (mark[a] != 0)
 			continue;
@@ -40,7 +40,7 @@ void breadth_first_search(Graph* G, int x, int mark[]) {
 		List L = neighbors(&(*G), a);
 		for (int i = 1; i <= L.size; i++) {
 			int y = element_at(&L, i);
-			push(&Q, y);
+			enQueue(&Q, y);
 		}
 	}
 }

@@ -7,7 +7,7 @@
 int pi[MAXN];
 int p[MAXN];
 int mark[MAXN];
-int path[MAXN];
+int cnt[MAXN];
 
 typedef struct {
 	int n;
@@ -28,10 +28,12 @@ void Dijkstra(Graph* G, int s) {
 	for (i = 1; i <=G->n; i++) {
 		pi[i] = INFINITY;
 		mark[i] = 0;
+        cnt[i] = 0;
 	}	
 	
 	pi[s] = 0;
 	p[s] = -1;
+    cnt[s] = 1;
 	
 	for (int k = 1; k < G->n; k++) {
 		int min_pi = INFINITY;
@@ -43,49 +45,40 @@ void Dijkstra(Graph* G, int s) {
 		}
 		
 		mark[i] = 1;
+
 		for (j = 1; j <= G->n; j++) {
 			if (G->A[i][j] != NO_EDGE && mark[j] == 0) {
 				if (pi[j] > pi[i] + G->A[i][j]) {
 					pi[j] = pi[i] + G->A[i][j];
 					p[j] = i;
-				}
+                    cnt[j] = cnt[i];
+				} else if (pi[j] == pi[i] + G->A[i][j]){
+                    cnt[j] += cnt[i];
+                }
 			}
 		}
 	}
 }
 
-void pathGraph(Graph* G, int u) {
-	int k = 0;
-	int current = u;
-	while (current != -1) {
-		path[k] = current; 
-		k++;
-		current = p[current];
-	}
-	for (int i = k-1; i >=0; i--) {
-		printf("%d ", path[i]);
-	}		
-}
-
 int main() {
 	Graph G;
 	int n, m, u, v, w;
-	FILE* file = fopen("dt.txt", "r");
+	FILE* file = fopen("sdd.txt", "r");
 	fscanf(file, "%d%d", &n, &m);
 	init_graph(&G, n);
 	for (int i = 1; i <= m; i++) {
 		fscanf(file, "%d%d%d", &u, &v, &w);
 		G.A[u][v] = w;
-//		G.A[v][u] = w;
+		G.A[v][u] = w;
 	}
 	
 	Dijkstra(&G, 1);
-	
-	for (int i = 1; i <= n; i++) {
-		printf("pi[%d] = %d, p[%d] = %d\n", i, pi[i], i, p[i]);	
-	}
-	
-	pathGraph(&G, n);
+
+    if (pi[n] == INFINITY) {
+        printf("-1 0");
+    } else {
+        printf("%d %d", pi[n], cnt[n]);
+    }
 	
 }
 

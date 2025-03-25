@@ -62,7 +62,7 @@ List neighbors(Graph* G, int x) {
 	make_null_list(&L);
 	for (int y = 1; y <= G->n; y++) {
 		if (G->A[x][y] > 0)
-		push_back(&L, y);
+			push_back(&L, y);
 	}
 	return L;
 }

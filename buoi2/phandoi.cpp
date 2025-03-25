@@ -22,14 +22,17 @@ int is_bigraph(Graph* G) {
         color[i] = -1;
     }
     fail = 0;
-    colorize(&(*G), 1, 0);
+    for (int i = 1; i <= G->n; i++) {
+        if (color[i] == -1) 
+            colorize(&(*G), i, 0);            
+    }
     return !fail;
 }
 
 int main () {
 	Graph G; 
     int n, m, u, v; 
-    FILE* file = fopen("db2.txt", "r"); 
+    FILE* file = fopen("db.txt", "r"); 
     fscanf(file, "%d%d", &n, &m); 
     init_graph(&G, n); 
     for (int e = 1; e <= m; e++) { 
@@ -41,6 +44,7 @@ int main () {
         printf("YES");
     else    
         printf("NO");
+
 
 	fclose(file);
     return 0; 

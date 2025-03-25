@@ -40,7 +40,7 @@ int contain_cycle(Graph* G) {
 int main () {
 	Graph G; 
     int n, m, u, v; 
-    FILE* file = fopen("haddock3.txt", "r"); 
+    FILE* file = fopen("haddock.txt", "r"); 
     fscanf(file, "%d%d", &n, &m); 
     init_graph(&G, n); 
     for (int e = 1; e <= m; e++) { 
