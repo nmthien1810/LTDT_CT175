@@ -58,13 +58,12 @@ void pathGraph(Graph* G, int u) {
 	int k = 0;
 	int current = u;
 	while (current != -1) {
-		path[k] = current; 
-		k++;
+		path[k++] = current;
 		current = p[current];
 	}
-	for (int i = k-1; i >=0; i--) {
-		printf("%d ", path[i]);
-	}		
+	for (int i = k - 1; i >= 1; i--) {
+		printf("");
+	}
 }
 
 int main() {
