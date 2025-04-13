@@ -68,7 +68,7 @@ int main() {
 		add_edge(&G, u, v, w);
 	}
 	
-	BellmanFord(&G, 1);
+    BellmanFord(&G, 1);
 	
 	for (int i = 1; i <= n; i++) {
 		printf("pi[%d] = %d, p[%d] = %d\n", i, pi[i], i, p[i]);	
