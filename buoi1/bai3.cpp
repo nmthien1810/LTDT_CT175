@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-#include "matrandinhcung.cpp"
-
-int main() {
-    Graph G;
-    init_graph(&G, 4, 5);
-    
-}
-=======
 #include <stdio.h>
 #include "matrandinhcung.h"
 
@@ -27,4 +18,3 @@ int main() {
     fclose(file);
     return 0; 
 }
->>>>>>> 0977523 (.)
