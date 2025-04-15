@@ -15,4 +15,4 @@ int main() {
         printf("deg(%d) = %d\n", v, degree(&G, v)); 
 
     return 0; 
-    }
+}
